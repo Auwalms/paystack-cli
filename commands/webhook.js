@@ -88,6 +88,11 @@ const init = () => {
           this.log(err);
           return;
         } else {
+          let selected = db.read('selected_integration');
+          if (selected) {
+            selected[domain + '_webhook_endpoint'] = webhookURL;
+            db.write('selected_integration', selected);
+          }
           this.log(
             'Webhook events will now be received at ' + args.local_route,
           );
